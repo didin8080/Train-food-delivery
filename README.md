@@ -3,7 +3,7 @@
 **This is my own Devops Project. Developer only push the project code to github and all other files like dockerfile ,jenkinsfile and requirements.txt are created by me.**
 
 If you want to work on this project on you own dockerfile,jenkinsfile,requirements.txt.
-Go through the link [train](https://github.com/didin2003/Train-food-delivery.git)
+Go through the link [Train-food-delivery](https://github.com/didin2003/Train-food-delivery.git)
 
 ## **Phase 1: Initial setup and Deployment**
 
