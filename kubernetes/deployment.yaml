@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
       - name: django
-        image: yourdockerhub/train-food-delivery:latest
+        image: didin8080/train-food-delivery:latest
         ports:
         - containerPort: 8000
