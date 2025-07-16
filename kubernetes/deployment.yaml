@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: train-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: train-app
+  template:
+    metadata:
+      labels:
+        app: train-app
+    spec:
+      containers:
+      - name: django
+        image: yourdockerhub/train-food-delivery:latest
+        ports:
+        - containerPort: 8000
