@@ -1,0 +1,23 @@
+{%load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Food Item</title>
+    <link rel="stylesheet" href="{% static 'css/up.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>Update Food Item</h1>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-group">
+                {{ form.as_p }}
+            </div>
+            <button type="submit" class="btn">Update</button>
+        </form>
+        <a href="{% url 'vendor_dashboard' %}" class="back-link">Back to Dashboard</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,42 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Cart</title>
+    <link rel="stylesheet" href="{%static 'css/cart.css' %}">
+   
+</head>
+<body>
+
+    <h2>Your Cart</h2>
+
+    {% if cart_items %}
+        <div class="cart-container">
+            {% for item in cart_items %}
+            <div class="cart-card">
+                <img src="{{ item.food_item.image.url }}" alt="{{ item.food_item.name }}">
+                <h3>{{ item.food_item.name }}</h3>
+                <p>Quantity: {{ item.quantity }}</p>
+                <p>Price: ₹{{ item.food_item.price }}</p>
+                <a href="{% url 'remove_from_cart' item.id %}" class="remove-btn">Remove</a>
+            </div>
+            {% endfor %}
+        </div>
+
+        <h3 class="total">Total: ₹{{ total_price|floatformat:2 }}</h3>
+
+        <div class="actions">
+            <a href="{% url 'view_food_items' %}" class="continue-shopping-btn">Continue Shopping</a>
+            <a href="{% url 'checkout' %}" class="checkout-btn">Proceed to Checkout</a>
+        </div>
+    {% else %}
+        <p style="text-align:center;">Your cart is empty.</p>
+        <div class="actions">
+            <a href="{% url 'view_food_items' %}" class="continue-shopping-btn">Continue Shopping</a>
+        </div>
+    {% endif %}
+
+</body>
+</html>

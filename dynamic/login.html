@@ -1,0 +1,39 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/reg.css' %}">
+<div class="login-page">
+  <div class="form">
+    <form method="post">
+      {% csrf_token %}
+      <h2 style="background-color: #b9c7d0;">{{error}}</h2>
+      <form class="register-form">
+      <input type="email" placeholder="email address" name="email" required/>
+
+      <input type="password" placeholder="password" name="password" required/>
+      
+      <button type="submit">login</button>
+      
+      
+    </form>
+    <script src="{% static 'js/register.js' %}"></script>   
+    <a href="{% url 'log' %}">home</a>
+  </div>
+</div>
+
+<style>
+    a {
+    color:#ff9800; /* Blue color */
+    text-decoration: none; /* Remove underline */
+    font-weight: bold; /* Bold text */
+    padding: 8px 10px; /* Padding around the text */
+    border: 2px solid #b9c7d0; /* Blue border */
+    border-radius: 3px; /* Rounded corners */
+    transition: background-color 0.3s, color 0.3s; /* Smooth transition for hover effect */
+    margin-bottom: 20%; /* Add margin to the bottom */
+}
+
+a:hover {
+    background-color: #d0b00f; /* Blue background on hover */
+    color: white; /* White text on hover */
+}
+</style>
+   

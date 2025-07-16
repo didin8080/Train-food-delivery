@@ -1,0 +1,37 @@
+/* General Page Styling */
+body {
+    background-color: #f4f7f9;
+}
+
+/* Profile Card */
+.profile-card {
+    max-width: 500px;
+    margin: auto;
+    border-radius: 10px;
+    padding: 25px;
+    background: #ffffff;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    transition: 0.3s;
+}
+
+.profile-card:hover {
+    box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+/* Badge Styling */
+.badge {
+    font-size: 14px;
+    padding: 8px 12px;
+    border-radius: 5px;
+}
+
+/* Back Button */
+.btn-primary {
+    font-size: 16px;
+    padding: 10px 20px;
+    transition: 0.3s ease-in-out;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}

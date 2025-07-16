@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Success</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+            background-color: #f8f9fa;
+        }
+        .container {
+            max-width: 500px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 1s ease-in-out;
+        }
+        h2 {
+            color: #28a745;
+        }
+        .details {
+            margin: 15px 0;
+            font-size: 18px;
+        }
+        .back-btn {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 10px 15px;
+            background-color: #ff7f00;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: transform 0.3s ease-in-out;
+        }
+        .back-btn:hover {
+            background-color: #e66a00;
+            transform: scale(1.05);
+        }
+        .feedback-form {
+            margin-top: 25px;
+            animation: fadeIn 1s ease-in-out;
+        }
+        label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        select, textarea {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            margin-top: 15px;
+            background-color: #007bff;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: transform 0.3s ease-in-out;
+        }
+        button:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+        .messages {
+            list-style: none;
+            padding: 0;
+            margin-top: 15px;
+            color: #155724;
+            background-color: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Order Placed Successfully!</h2>
+        <p class="details">Your order #{{ order.id }} has been placed.</p>
+        <p class="details">Payment Method: {{ order.payment_method }}</p>
+        <p class="details">Status: {{ order.status }}</p>
+        <a href="{% url 'view_cart' %}" class="back-btn">Back to Cart</a>
+
+        <h3>Leave Feedback</h3>
+        <form method="POST" class="feedback-form">
+            {% csrf_token %}
+            <label for="rating">Rate Your Experience (1-5):</label>
+            <select name="rating" required>
+                <option value="">Select Rating</option>
+                <option value="1">1 - Poor</option>
+                <option value="2">2 - Fair</option>
+                <option value="3">3 - Good</option>
+                <option value="4">4 - Very Good</option>
+                <option value="5">5 - Excellent</option>
+            </select>
+            
+            <label for="comment">Comments:</label>
+            <textarea name="comment" placeholder="Tell us about your experience..."></textarea>
+            
+            <button type="submit">Submit Feedback</button>
+        </form>
+
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+
+</body>
+</html>

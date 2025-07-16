@@ -1,0 +1,38 @@
+body {
+    background-color: #f4f7f9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+/* Card Styling */
+.card {
+    max-width: 450px;
+    margin: auto;
+    border-radius: 10px;
+}
+
+/* Button Styling */
+.btn-primary {
+    background-color: #007bff;
+    border: none;
+    transition: 0.3s ease-in-out;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+/* Form Inputs */
+.form-control {
+    border-radius: 5px;
+    padding: 10px;
+}
+
+/* Alert Box */
+.alert {
+    font-size: 14px;
+    text-align: center;
+}

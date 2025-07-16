@@ -1,0 +1,45 @@
+
+{% block content %}
+
+<h2>Order Monitoring</h2>
+
+{% if order_items %}
+    <table border="1">
+        <tr>
+            <th>Order Item ID</th>
+            <th>Order ID</th>
+            <th>Vendor</th>
+            <th>Customer</th>
+            <th>Food Item</th>
+            <th>Quantity</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+        {% for item in order_items %}
+        <tr>
+            <td>{{ item.id }}</td>
+            <td>{{ item.order.id }}</td>  <!-- Assuming OrderItem has a ForeignKey to Order -->
+            <td>{{ item.order.vendor.business_name }}</td>
+            <td>{{ item.order.customer.username }}</td>
+            <td>{{ item.food_item.name }}</td>
+            <td>{{ item.quantity }}</td>
+            <td>{{ item.order.status }}</td>
+            <td>
+                <form method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="order_id" value="{{ item.order.id }}">
+                    <select name="action">
+                        <option value="cancel">Cancel</option>
+                        <option value="resolve">Resolve</option>
+                    </select>
+                    <button type="submit">Update</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+{% else %}
+    <p>No orders found.</p>  <!-- Debug message -->
+{% endif %}
+
+{% endblock %}

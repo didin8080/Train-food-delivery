@@ -1,0 +1,61 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Items</title>
+    <link rel="stylesheet" href="{% static 'css/viewitem.css' %}">
+</head>
+<body>
+
+    <h1>Food Items Uploaded by Approved Vendors</h1>
+
+    <!-- Search Form -->
+    <form method="GET">
+        <input type="text" name="q" placeholder="Search by food name" value="{{ query }}">
+        <input type="text" name="pnr_or_train" placeholder="Enter PNR or Train Number" value="{{ pnr_or_train }}">
+        
+        <select name="station" id="station">
+            <option value="">-- Select Station --</option>
+            {% for station in stations %}
+                <option value="{{ station }}" {% if station == selected_station %}selected{% endif %}>
+                    {{ station }}
+                </option>
+            {% endfor %}
+        </select>
+        
+        <button type="submit">Search</button>
+    </form>
+
+    {% if selected_station %}
+        <p class="selected-station">Showing food items available at: <strong>{{ selected_station }}</strong></p>
+    {% endif %}
+
+    {% if food_items %}
+        <div class="food-container">
+            {% for item in food_items %}
+                <div class="food-card">
+                    {% if item.image %}
+                        <img src="{{ item.image.url }}" alt="{{ item.name }}" class="food-image">
+                    {% endif %}
+                    <div class="food-info">
+                        <strong>{{ item.name }}</strong>
+                        <span>Vendor: {{ item.vendor.business_name }}</span>
+                        <span>Station: {{ item.railway_station }}</span>
+                        <span>Quantity: {{ item.quantity }}</span>
+                        <div class="food-price">₹{{ item.price }}</div>
+                    </div>
+                    <form method="POST" action="{% url 'add_to_cart' item.id %}">
+                        {% csrf_token %}
+                        <button type="submit" class="add-to-cart">Add to Cart</button>
+                    </form>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="no-food">No food items available.</p>
+    {% endif %}
+
+</body>
+</html>

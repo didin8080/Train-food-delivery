@@ -1,0 +1,18 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/reg.css' %}">
+<div class="login-page">
+  <div class="form">
+    <form method="post">
+      {% csrf_token %}
+    <form class="register-form">
+      <input type="text" placeholder="name" name="fn" required/>
+	  <input type="text" placeholder="phone number" name="ph" required/>
+      <input type="email" placeholder="email address" name="em" required/>
+      <input type="password" placeholder="password" name="ps" required/>
+      
+      <button type="submit">register</button>
+      <p class="message">Already registered? <a href="#">Sign In</a></p>
+    </form>
+    <script src="{% static 'js/register.js' %}"></script>   
+  </div>
+</div>

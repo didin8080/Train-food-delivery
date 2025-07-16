@@ -1,0 +1,66 @@
+/* Navbar Enhancements */
+.navbar {
+    padding: 12px 20px;
+    background: #222;
+    transition: all 0.3s ease-in-out;
+}
+
+.navbar-brand {
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.navbar-brand img {
+    border-radius: 50%;
+}
+
+.nav-hover {
+    transition: all 0.3s ease-in-out;
+}
+
+.nav-hover:hover {
+    color: #ffdd57 !important;
+}
+
+/* Profile Dropdown */
+.navbar-nav .dropdown-menu {
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    border: none;
+}
+
+.dropdown-menu .dropdown-item {
+    transition: all 0.3s ease-in-out;
+}
+
+.dropdown-menu .dropdown-item:hover {
+    background-color: #f8f9fa;
+    color: #004aad;
+}
+
+/* Summary Cards */
+.summary-card {
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    transition: 0.3s;
+    background: #fff;
+}
+
+.summary-card:hover {
+    box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+/* Table Styling */
+.table th, .table td {
+    text-align: center;
+    vertical-align: middle;
+}
+
+/* Status Badges */
+.badge {
+    font-size: 14px;
+    padding: 8px 12px;
+    border-radius: 5px;
+}

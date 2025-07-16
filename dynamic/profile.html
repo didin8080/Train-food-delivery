@@ -1,0 +1,56 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vendor Profile</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="#">Vendor Portal</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'vendor_dashboard' %}">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                    
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Profile Section -->
+    <div class="container mt-5">
+        <div class="card profile-card shadow-lg">
+            <div class="card-body text-center">
+                <h2 class="card-title">Vendor Profile</h2>
+                <hr>
+                <p><strong>Business Name:</strong> {{ vendor.business_name }}</p>
+                <p><strong>Email:</strong> {{ vendor.user.email }}</p>
+                <p><strong>Phone:</strong> {{ vendor.phone }}</p>
+                <p><strong>Address:</strong> {{ vendor.address }}</p>
+                <p>
+                    <strong>Status:</strong> 
+                    <span class="badge {% if vendor.is_approved %} bg-success {% else %} bg-warning text-dark {% endif %}">
+                        {% if vendor.is_approved %} Approved {% else %} Pending Approval {% endif %}
+                    </span>
+                </p>
+                <a href="{% url 'vendor_dashboard' %}" class="btn btn-primary mt-3">Back to Dashboard</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

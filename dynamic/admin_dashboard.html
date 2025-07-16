@@ -1,0 +1,161 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | Food Delivery</title>
+    
+    <!-- Bootstrap & Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="{% static 'css/admin_dashboard.css' %}">
+
+    <style>
+        /* Navbar Styling */
+        .navbar {
+            background: #222; /* Dark Theme */
+            padding: 15px 20px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .navbar-brand {
+            font-size: 22px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            color: white;
+        }
+
+        .navbar-brand img {
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .nav-item a {
+            color: white !important;
+            font-size: 16px;
+            margin-right: 15px;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .nav-item a:hover {
+            color: #f8c146 !important;
+        }
+
+        /* Profile Dropdown */
+        .dropdown-menu {
+            border-radius: 8px;
+            border: none;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .dropdown-item:hover {
+            background-color: #f8f9fa;
+            color: #0056b3;
+        }
+
+        /* Dashboard Cards */
+        .summary-card {
+            background: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            transition: 0.3s ease-in-out;
+        }
+
+        .summary-card:hover {
+            box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.2);
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="{% static 'images/logo.png' %}" alt="Logo" width="40"> Admin Dashboard
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'vendor_approval' %}">
+                            <i class="bi bi-check-circle"></i> Vendor Approvals
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'user_management' %}">
+                            <i class="bi bi-people"></i> User Management
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'order_monitoring' %}">
+                            <i class="bi bi-box-seam"></i> Order Monitoring
+                        </a>
+                    </li>
+
+                    <!-- Profile Dropdown -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown">
+                            <img src="{% static 'images/profile.png' %}" alt="Profile" width="30" height="30" class="rounded-circle">
+                            Admin
+                        </a>
+                      
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- DASHBOARD CONTENT -->
+    <div class="container mt-5 pt-5">
+        <h2 class="text-center mb-4">Admin Dashboard</h2>
+
+        <div class="row text-center">
+            <div class="col-md-3">
+                <div class="card summary-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Total Vendors</h5>
+                        <h3 class="text-primary">{{ total_vendors }}</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card summary-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Pending Approvals</h5>
+                        <h3 class="text-warning">{{ pending_vendors }}</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card summary-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Active Users</h5>
+                        <h3 class="text-success">{{ active_users }}</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card summary-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Total Orders</h5>
+                        <h3 class="text-danger">{{ total_orders }}</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

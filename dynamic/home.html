@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Success</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            background: url("../static/images/pexels-cottonbro-3843285.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
+            
+        }
+        .container {
+            width: 50%;
+            margin: 100px auto;
+            background: white;
+            padding: 20px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+        .success-message {
+            color: blue;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .home-btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 18px;
+        }
+        .home-btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="success-message">Login Successful!</h1>
+        <p>Welcome to the Food Delivery System for Train Passengers.</p>
+        <a href="{% url 'log' %}" class="home-btn">Go to Home</a>
+    </div>
+</body>
+</html>

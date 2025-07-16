@@ -1,0 +1,78 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vendor Dashboard | Food Delivery</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="#">Vendor Dashboard</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'vendor_profile' %}">Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'manage_orders' %}">Orders</a>
+                    </li>
+                    <li class="nav-item">
+                    
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Welcome Section -->
+    <header class="hero-section text-center text-white d-flex align-items-center">
+        <div class="container">
+            <h1 class="fw-bold">Welcome, {{ vendor.business_name }}!</h1>
+            <p class="lead">Manage your food items, track orders, and grow your business seamlessly.</p>
+            <a href="{% url 'add_food_item' %}" class="btn btn-light btn-lg fw-bold">+ Add Food Item</a>
+        </div>
+    </header>
+
+    <!-- Dashboard Content -->
+    <div class="container my-5">
+        <h2 class="text-center mb-4">Your Food Items</h2>
+
+        {% if food_items %}
+            <div class="row">
+                {% for food_item in food_items %}
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="card food-card">
+                            {% if food_item.image %}
+                                <img src="{{ food_item.image.url }}" class="card-img-top" alt="{{ food_item.name }}">
+                            {% endif %}
+                            <div class="card-body text-center">
+                                <h5 class="card-title">{{ food_item.name }}</h5>
+                                <p class="text-muted mb-1">Price: <strong>₹{{ food_item.price }}</strong></p>
+                                <p class="text-muted mb-1">Quantity: {{ food_item.quantity }}</p>
+                                <p class="text-muted">Railway Station: {{ food_item.railway_station }}</p>
+                                <div class="d-flex justify-content-center">
+                                    <a href="{% url 'update_food_item' food_item.id %}" class="btn btn-outline-primary btn-sm me-2">Edit</a>
+                                    <a href="{% url 'delete_food_item' food_item.id %}" class="btn btn-outline-danger btn-sm">Delete</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p class="text-muted text-center">You have not added any food items yet.</p>
+        {% endif %}
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
