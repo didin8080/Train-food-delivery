@@ -43,7 +43,8 @@ python3 manage.py runserver
 
 It will generate an ip address copy ip and paste it on the terminal.
 
-`<16.16.201.21:8000>`
+	
+Train-Food-Delivery Project by Didin`<16.16.201.21:8000>`
 
 <div align="center">
 <img src="img/tested-locally.png" alt="Logo" height="500%" width="100%>
