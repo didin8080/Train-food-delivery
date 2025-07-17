@@ -41,7 +41,7 @@ sudo apt install python3 python3-pip python3-venv -y
 python3 manage.py runserver
 ```
 
-It will generate an ip copy ip and paste it on the terminal.
+It will generate an ip address copy ip and paste it on the terminal.
 
 `<16.16.201.21:8000>`
 
@@ -567,4 +567,142 @@ You should now have a Grafana dashboard set up to visualize metrics from Prometh
 
 Grafana is a powerful tool for creating visualizations and dashboards, and you can further customize it to suit your specific monitoring needs.
 
-That's it! You've successfully installed and set up Grafana to work with Prometheus for monitoring and visualization.
+That's it! You've successfully installed and set up Grafana to work with Prometheus for monitoring and visualization 
+
+
+## **Phase 3: Kubernetes**
+
+
+### Deploy Application on Argocd Kubernetes
+
+**Step 1: create kubectl on local system**
+
+```bash
+curl -o kubectl https://amazon-eks.s3.us-west-2.amazonaws.com/1.19.6/2021-01-05/bin/linux/amd64/kubectl
+chmod +x ./kubectl
+sudo mv ./kubectl /usr/local/bin
+kubectl version --short --client
+```
+
+**Step 2: create awscli on local system**
+
+```bash
+sudo apt install unzip
+curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+unzip awscliv2.zip
+sudo ./aws/install
+aws --version
+```
+
+**Step 3: create eksctl on local system**
+
+```bash
+curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
+sudo mv /tmp/eksctl /usr/local/bin
+eksctl version
+```
+
+
+**Step 4: Aws Configure** 
+
+```bash
+aws configure
+```
+
+Provide Aws Access id, Password, Region, Format=Json
+
+
+**Step 5: create Kubernetes Cluster** 
+
+```bash
+eksctl create cluster --name traincluster --region eu-north-1 --zones eu-north-1b,eu-north-1c --without-nodegroup
+```
+
+It will take atleast 20-25 minutes for the cluster to create.
+
+**Step 5: Create & Associate IAM OIDC Provider for our EKS Cluster**
+
+```bash
+eksctl utils associate-iam-oidc-provider --region eu-north-1 --cluster traincluster --approve
+```
+
+
+**Step 6: create Kubernetes Nodegroup**
+
+```bash
+eksctl create nodegroup --cluster traincluster --region eu-north-1 --name traindemo-ng-public1 --node-type t3.medium --nodes 2 --nodes-min 2 --nodes-max 4 --node-volume-size 20 --ssh-access --ssh-public-key sonu --managed --asg-access --external-dns-access --full-ecr-access --appmesh-access --alb-ingress-access
+```
+
+**Verify Cluster & Nodes**
+
+Goto EKS Service in AWS and check for the cluster creation
+
+
+**step 7: Install HELM**
+
+```bash
+curl https://baltocdn.com/helm/signing.asc | gpg --dearmor | sudo tee /usr/share/keyrings/helm.gpg > /dev/null
+sudo apt-get install apt-transport-https --yes
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/helm.gpg] https://baltocdn.com/helm/stable/debian/ all main" | sudo tee /etc/apt/sources.list.d/helm-stable-debian.list
+sudo apt-get update
+sudo apt-get install helm
+```
+
+**step 8: ArgoCD installation**
+
+
+```bash
+aws eks update-kubeconfig --name zomatocluster --region eu-north-1
+
+kubectl create namespace argocd
+
+kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/v2.4.7/manifests/install.yaml
+
+export ARGOCD_SERVER=$(kubectl get svc argocd-server -n argocd -o json | jq --raw-output '.status.loadBalancer.ingress[0].hostname')
+
+kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "LoadBalancer"}}'
+
+helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+
+kubectl create namespace prometheus-node-exporter
+
+helm install prometheus-node-exporter prometheus-community/prometheus-node-exporter --namespace prometheus-node-exporter
+
+export ARGOCD_SERVER=$(kubectl get svc argocd-server -n argocd -o json | jq --raw-output '.status.loadBalancer.ingress[0].hostname')
+
+echo $ARGOCD_SERVER   #gives an adress copy it and paste it in the new tab. this is the argocd link.(eg: a4f5b673fa5a04274bbb06884d487745-74365602.eu-north-1.elb.amazonaws.com)
+
+export ARGOCD_PWD=$(kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d)
+
+echo $ARGOCD_PWD     #it gives the password copy it and paste it on the argocd page username is "admin" (eg:XefIYWOviBUSfiCO)
+```
+
+
+
+In ArgoCD page login it.
+
+- Select new app
+- Provide application name given in the repo file eg:(train-food-delivery)
+- Project name = default
+- Sync policy = automatic
+- On source = paste the repo link
+- Path = (the file contain the deployment.yml file ,service.yml file and node-service.yml file)
+- On destination = click on cluster url a link will popup select that link
+- Namespace = default
+- Create it
+- Select the application and sync , enable force and then ok.
+
+To access it 
+
+
+`<node-ip:30777>`
+
+`30777` port number that we have mentioned on servive.yaml file 
+
+
+<div align="center">
+<img src="/home/devops/Train-Food-Delivery/img/deployed-on-argocd.png" alt="Logo" height="500%" width="100%">
+<p align="center">Application deployed on kubernetes</p>
+</div>
+
+### Major things that you wnat to edit in this project .Goto `train_food_delivery/settings.py` on `ALLOWED_HOSTS` provide your `public-ip` and save it 
