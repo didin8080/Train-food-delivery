@@ -47,7 +47,7 @@ It will generate an ip address copy ip and paste it on the terminal.
 Train-Food-Delivery Project by Didin`<16.16.201.21:8000>`
 
 <div align="center">
-<img src="img/tested-locally.png" alt="Logo" height="500%" width="100%>
+<img src="img/tested-locally.png" alt="Logo" height="500%" width="100%">
 <p align="center"> Tested locally output </p>
 </div>
 
@@ -280,10 +280,11 @@ Your application is deployed in docker to access it.
 `<public-ip:8000>`
 
 <div align="center">
-<img src="img/train-food.png" alt="Logo" height="500%" width="100%>
+<img src="img/train-food.png" alt="Logo" height="500%" width="100%">
 <p align="center"> Home Page </p>
 </div>
-
+	
+Merge bran
 **Application deployed in docker**
 
 ## **Phase 2: Moniter the Application**
