@@ -703,7 +703,7 @@ To access it
 
 
 <div align="center">
-<img src="/home/devops/Train-Food-Delivery/img/deployed-on-argocd.png" alt="Logo" height="500%" width="100%">
+<img src="img/deployed-on-argocd.png" alt="Logo" height="500%" width="100%">
 <p align="center">Application deployed on kubernetes</p>
 </div>
 
