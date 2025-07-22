@@ -284,7 +284,7 @@ Your application is deployed in docker to access it.
 <p align="center"> Home Page </p>
 </div>
 	
-Merge bran
+
 **Application deployed in docker**
 
 ## **Phase 2: Moniter the Application**
